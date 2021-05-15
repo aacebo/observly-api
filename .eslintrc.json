@@ -1,0 +1,103 @@
+{
+	"parser": "@typescript-eslint/parser",
+	"plugins": ["github", "jest", "import", "@typescript-eslint"],
+	"extends": [
+		"plugin:github/recommended",
+		"plugin:jest/recommended",
+		"plugin:import/errors",
+		"plugin:import/warnings",
+		"plugin:import/typescript",
+		"plugin:@typescript-eslint/recommended"
+	],
+	"env": {
+		"node": true,
+		"commonjs": true
+	},
+	"parserOptions": {
+		"ecmaVersion": 2020
+	},
+	"rules": {
+		"no-console": 2,
+		"camelcase": "off",
+		"import/no-namespace": 0,
+		"import/first": 0,
+		"no-unused-vars": "off",
+		"no-multiple-empty-lines": ["error", { "max": 1, "maxEOF": 1 }],
+		"import/no-default-export": "error",
+		"import/order": [
+			"error",
+			{
+				"groups": ["builtin", "external", "parent", "sibling", "index"],
+				"newlines-between": "always"
+			}
+		],
+		"@typescript-eslint/explicit-module-boundary-types": 0,
+		"@typescript-eslint/no-explicit-any": 0,
+		"@typescript-eslint/no-empty-function": 0,
+		"@typescript-eslint/explicit-function-return-type": "error",
+		"@typescript-eslint/member-ordering": "error",
+		"@typescript-eslint/ban-types": 0,
+		"@typescript-eslint/explicit-member-accessibility": [
+			"error",
+			{
+				"accessibility": "no-public"
+			}
+		],
+		"@typescript-eslint/naming-convention": [
+			"error",
+			{
+				"selector": "interface",
+				"format": ["PascalCase"],
+				"custom": {
+					"regex": "^I[A-Z]",
+					"match": true
+				}
+			},
+			{
+				"selector": [
+					"classProperty",
+					"objectLiteralProperty",
+					"typeProperty",
+					"classMethod",
+					"objectLiteralMethod",
+					"typeMethod",
+					"accessor",
+					"enumMember"
+				],
+				"format": null,
+				"modifiers": ["requiresQuotes"]
+			},
+			{
+				"selector": "objectLiteralProperty",
+				"format": ["camelCase", "snake_case", "PascalCase", "UPPER_CASE"]
+			},
+			{
+				"selector": "default",
+				"format": ["camelCase"]
+			},
+			{
+				"selector": "function",
+				"format": ["camelCase"]
+			},
+			{
+				"selector": "parameter",
+				"format": ["camelCase"],
+				"leadingUnderscore": "allow"
+			},
+			{
+				"selector": "memberLike",
+				"modifiers": ["private"],
+				"format": ["camelCase"],
+				"leadingUnderscore": "require"
+			},
+			{
+				"selector": "typeLike",
+				"format": ["PascalCase"]
+			},
+			{
+				"selector": "variable",
+				"format": ["camelCase"]
+			}
+		]
+	}
+}
