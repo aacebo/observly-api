@@ -19,8 +19,6 @@ export function withQuery(...columns: string[]): (ctx: PaginationContext, next: 
 			abortEarly: false
 		});
 
-		console.log(res.error);
-
 		if (res.error) {
 			ctx.status = StatusCodes.BAD_REQUEST;
 			ctx.body = res.error.details.map((d) => d.message);
