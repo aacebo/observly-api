@@ -1,12 +1,12 @@
-import { ParameterizedContext } from 'koa';
+import { Next, ParameterizedContext } from 'koa';
 import { StatusCodes } from 'http-status-codes';
 
 import { Repository } from '../../repository';
 
-export function findOne(): (ctx: ParameterizedContext) => Promise<void> {
+export function findOne(): (ctx: ParameterizedContext, next: Next) => Promise<void> {
 	const repository = new Repository();
 
-	return async function (ctx: ParameterizedContext): Promise<void> {
+	return async function (ctx: ParameterizedContext, next: Next): Promise<void> {
 		const org = await repository.findBySlug(ctx.params.org_slug);
 
 		if (!org) {
@@ -14,5 +14,7 @@ export function findOne(): (ctx: ParameterizedContext) => Promise<void> {
 		}
 
 		ctx.body = org;
+
+		await next();
 	};
 }

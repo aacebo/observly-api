@@ -14,5 +14,7 @@ export function router(): Koa {
 	r.use(organizations.router.allowedMethods());
 	r.use(organizations.router.routes());
 
+	r.use(middleware.response());
+
 	return r;
 }
