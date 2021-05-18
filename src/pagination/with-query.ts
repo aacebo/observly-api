@@ -1,6 +1,8 @@
 import { StatusCodes } from 'http-status-codes';
 import { Next } from 'koa';
 
+import { HttpError } from '../error';
+
 import { PaginationContext } from './context';
 import { Page } from './page';
 import { schema } from './schema';
@@ -21,7 +23,7 @@ export function withQuery(...columns: string[]): (ctx: PaginationContext, next: 
 
 		if (res.error) {
 			ctx.status = StatusCodes.BAD_REQUEST;
-			ctx.body = res.error.details.map((d) => d.message);
+			ctx.body = new HttpError(StatusCodes.BAD_REQUEST, ...res.error.details.map((d) => d.message));
 			return;
 		}
 

@@ -10,7 +10,7 @@ export function findOne(): (ctx: ParameterizedContext, next: Next) => Promise<vo
 		const org = await repository.findBySlug(ctx.params.org_slug);
 
 		if (!org) {
-			ctx.throw(StatusCodes.NOT_FOUND);
+			ctx.throw(StatusCodes.NOT_FOUND, 'organization not found');
 		}
 
 		ctx.body = org;

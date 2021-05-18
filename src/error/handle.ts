@@ -1,6 +1,8 @@
 import { Next, ParameterizedContext } from 'koa';
 import debug from 'debug';
 
+import { HttpError } from './http-error';
+
 export function handle(): (ctx: ParameterizedContext, next: Next) => Promise<void> {
 	const log = debug('observly-api:request:error');
 
@@ -8,10 +10,12 @@ export function handle(): (ctx: ParameterizedContext, next: Next) => Promise<voi
 		try {
 			await next();
 		} catch (err) {
-			ctx.status = err.statusCode || err.status || 500;
-			ctx.body = { message: err.message };
+			const error = new HttpError(err.statusCode || err.status || 500, err.message);
 
-			if (ctx.status >= 500) {
+			ctx.status = error.status;
+			ctx.body = error;
+
+			if (error.status >= 500) {
 				log(err);
 			}
 		}
