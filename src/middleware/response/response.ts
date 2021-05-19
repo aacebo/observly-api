@@ -3,14 +3,14 @@ import qs from 'qs';
 
 import { PaginationContext } from '../../pagination';
 
-import { IResponse } from './schema';
+import { IResponse } from './interface';
 
 export function response(): (ctx: PaginationContext, next: Next) => Promise<void> {
 	return async function (ctx: PaginationContext, next: Next): Promise<void> {
 		if (!ctx.body) return;
 
-		let links: { [key: string]: string | undefined } | undefined;
-		let meta: { [key: string]: string | number } | undefined;
+		let links: { [key: string]: string | null } | null = null;
+		let meta: { [key: string]: string | number } | null = null;
 
 		if (ctx.total !== undefined) {
 			const url = ctx.path;
@@ -50,8 +50,8 @@ export function response(): (ctx: PaginationContext, next: Next) => Promise<void
 			links = {
 				first: `${url}?${first}`,
 				last: `${url}?${last}`,
-				next: nxt && `${url}?${nxt}`,
-				prev: prev && `${url}?${prev}`
+				next: nxt ? `${url}?${nxt}` : null,
+				prev: prev ? `${url}?${prev}` : null
 			};
 
 			meta = {

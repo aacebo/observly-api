@@ -16,10 +16,7 @@ export function withQuery(...columns: string[]): (ctx: PaginationContext, next: 
 	}
 
 	return async function (ctx: PaginationContext, next: Next): Promise<void> {
-		const res = schema.validate(ctx.query, {
-			allowUnknown: false,
-			abortEarly: false
-		});
+		const res = schema.validate(ctx.query);
 
 		if (res.error) {
 			ctx.status = StatusCodes.BAD_REQUEST;

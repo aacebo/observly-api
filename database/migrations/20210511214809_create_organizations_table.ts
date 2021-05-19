@@ -6,6 +6,7 @@ export async function up(knex: Knex): Promise<void> {
 	if (!exists) {
 		return knex.schema.createTable('organizations', (t) => {
 			t.uuid('id').primary();
+			t.uuid('key').notNullable().unique().index();
 			t.string('slug').notNullable().unique().index();
 			t.string('name').notNullable().index();
 			t.timestamp('created_at').notNullable().defaultTo(knex.fn.now());
